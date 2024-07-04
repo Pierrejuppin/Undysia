@@ -127,9 +127,9 @@ const CorrectionForm = () => {
       </div>
       <div>
         <div className="mt-4">
-          <div className="bg-primary text-text rounded p-4 relative">
+          <div className="bg-primary text-text rounded p-4 relative w-[600px]">
             <h3>Réponse :</h3>
-            <p className="max-w-96">{response}</p>
+            <p className="max-w-full">{response}</p>
             <button
               onClick={() => navigator.clipboard.writeText(response)}
               className="absolute top-0 right-0"

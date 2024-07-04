@@ -4,10 +4,12 @@ import HeroHeader from "./components/HeroHeader";
 
 export default function Home() {
   return (
-    <main className="bg-background w-screen flex flex-col justify-center items-center">
+    <main className="bg-background md:w-screen  justify-center items-center">
       <HeroHeader />
-      <CorrectionTool />
-      <Footer />
+      <div className="flex flex-col  justify-center items-center w-screen mt-48">
+        <CorrectionTool />
+        <Footer />
+      </div>
     </main>
   );
 }
