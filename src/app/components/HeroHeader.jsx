@@ -10,9 +10,9 @@ const HeroHeader = () => {
           <p className="py-6 text-left italic font-thin">
             Bienvenue sur <span className="text-primary">UNDYSIA </span>votre
             solution de rédaction {"\n"}adapté aux personnes dyslexiques {"\n"}
-            et malvoyantes {"\n"}
-            vous permettant de corriger vos différentes {"\n"}rédactions CV,
-            Lettre de motivation et de les{"\n"} télécharger au format PDF
+            et malvoyantes. {"\n"}
+            Nous vous proposons un accompagnement dans la{"\n"}
+            rédaction de vos CV{"\n"} et lettres de motivation.
           </p>
           <Image
             src="/home.jpeg"
