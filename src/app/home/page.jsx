@@ -8,7 +8,7 @@ import { useSpeechRecognition } from "react-speech-kit";
 const CorrectionForm = () => {
   const [inputText, setInputText] = useState("");
   const [response, setResponse] = useState("");
-  const [selectedVoice, setSelectedVoice] = useState(null);
+  const [selectedVoice, setSelectedVoice] = useState();
 
   const { speak, cancel, voices } = useSpeechSynthesis();
   const { listen, listening, stop } = useSpeechRecognition({
