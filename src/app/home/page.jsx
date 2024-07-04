@@ -98,14 +98,44 @@ const CorrectionForm = () => {
           >
             {listening ? "Arrêter l'écoute" : "Utiliser le micro"}
           </button>
-          <button
-            onClick={() => speak({ text: response })}
-            className="mt-2 p-2 bg-blue-500 text-white"
-          >
-            Lire la réponse
-          </button>
-          <h3>Résultat :</h3>
-          <p className="mb-56">{response}</p>
+          <div className="mt-4">
+            <h3>Réponse :</h3>
+            <p>{response}</p>
+            <button
+              onClick={() =>
+                speak({
+                  text: response,
+                  voice: voices.find((v) => v.voiceURI === selectedVoice),
+                })
+              }
+              className="mt-2 p-2 bg-blue-500 text-white"
+            >
+              Lire la réponse
+            </button>
+            <button
+              onClick={cancel}
+              className="mt-2 p-2 bg-red-500 text-white ml-2"
+            >
+              Arrêter
+            </button>
+            <div className="mt-4">
+              <label htmlFor="voiceSelect" className="mr-2">
+                Choisir une voix :
+              </label>
+              <select
+                id="voiceSelect"
+                value={selectedVoice}
+                onChange={(e) => setSelectedVoice(e.target.value)}
+                className="p-2 bg-white text-black"
+              >
+                {voices.map((voice) => (
+                  <option key={voice.voiceURI} value={voice.voiceURI}>
+                    {voice.name} ({voice.lang})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </main>
