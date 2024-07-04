@@ -23,10 +23,20 @@ const CorrectionForm = () => {
     }
   }, [voices, selectedVoice]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, contentText) => {
     e.preventDefault();
     try {
       const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+      const requestBody = {
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: contentText,
+          },
+        ],
+      };
+
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
         {
@@ -35,17 +45,10 @@ const CorrectionForm = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${apiKey}`,
           },
-          body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [
-              {
-                role: "user",
-                content: `Corrige l'orthographe, la grammaire, la syntaxe de ce texte : ${inputText}`,
-              },
-            ],
-          }),
+          body: JSON.stringify(requestBody),
         }
       );
+
       const data = await response.json();
       const correctedText = data.choices[0].message.content;
       setResponse(correctedText);
@@ -86,9 +89,39 @@ const CorrectionForm = () => {
           <br />
           <button
             type="submit"
+            onClick={(e) =>
+              handleSubmit(
+                e,
+                `Corrige les fautes d'orthographe, de style et de conjugaisons dans sa langue actuelle : ${inputText}`
+              )
+            }
             className="w-20 rounded bg-primary text-text border-2 border-black"
           >
             Corriger
+          </button>
+          <button
+            type="submit"
+            onClick={(e) =>
+              handleSubmit(
+                e,
+                `Reformule ce texte pour un contexte profesionnel dans sa langue actuelle : ${inputText}`
+              )
+            }
+            className="w-20 rounded bg-primary text-text border-2 border-black"
+          >
+            Reformuler
+          </button>
+          <button
+            type="submit"
+            onClick={(e) =>
+              handleSubmit(
+                e,
+                `Traduis le texte dans un anglais profesionnel : ${inputText}`
+              )
+            }
+            className="w-20 rounded bg-primary text-text border-2 border-black"
+          >
+            Traduire
           </button>
         </form>
         <div>
@@ -98,6 +131,7 @@ const CorrectionForm = () => {
           >
             {listening ? "Arrêter l'écoute" : "Utiliser le micro"}
           </button>
+
           <div className="mt-4">
             <h3>Réponse :</h3>
             <p>{response}</p>
