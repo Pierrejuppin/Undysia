@@ -13,6 +13,7 @@
     "lucide-react": "^0.400.0",
     "next": "14.2.4",
     "react": "^18",
+    "react-animate-on-scroll": "^2.1.9",
     "react-dom": "^18",
     "react-font-size-changer": "^0.2.0",
     "react-fontawesome": "^1.7.1"
