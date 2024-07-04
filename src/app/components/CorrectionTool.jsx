@@ -5,7 +5,6 @@ import { Pause } from "lucide-react";
 import { Play } from "lucide-react";
 import { ZoomIn } from "lucide-react";
 import { ZoomOut } from "lucide-react";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { useSpeechRecognition } from "react-speech-kit";
@@ -65,7 +64,7 @@ const CorrectionForm = () => {
   const mic = require("../../../public/mic.svg");
   return (
     <>
-      {/* <h5 className="text-center mr-2 text-text">Régler la taille:</h5> */}
+      <h5 className="text-center mr-2 text-text">Régler la taille:</h5>
       <FontSizeChanger
         targets={["#target-one"]}
         customButtons={{
@@ -77,8 +76,9 @@ const CorrectionForm = () => {
             WebkitBoxSizing: "border-box",
             WebkitBorderRadius: "12px",
             width: "40px",
+            padding: "7px",
           },
-          buttonsMargin: 5,
+          buttonsMargin: 10,
         }}
       />
       <div id="target-one" className="mb-24">
