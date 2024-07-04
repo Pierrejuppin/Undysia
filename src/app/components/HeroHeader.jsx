@@ -21,7 +21,14 @@ const HeroHeader = () => {
           Nous vous aidons dans la{"\n"}
           rédaction de vos CV{"\n"} et lettres de motivation.
         </p>
-
+        <div className="relative top-[200px] right-[350px]">
+          <section id="section10" class="demo">
+            <h1>Scroll Down Button #10</h1>
+            <a href="#thanks">
+              <span></span>Scroll
+            </a>
+          </section>
+        </div>
         <Image src="/home.jpeg" alt="home" width={500} height={500} />
       </div>
     </>

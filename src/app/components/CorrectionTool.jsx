@@ -1,10 +1,6 @@
 "use client";
-import { ClipboardCopy } from "lucide-react";
-import { Mic } from "lucide-react";
-import { Pause } from "lucide-react";
-import { Play } from "lucide-react";
-import { ZoomIn } from "lucide-react";
-import { ZoomOut } from "lucide-react";
+
+import { ZoomIn, ZoomOut, Play, Pause, Mic, ClipboardCopy } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { useSpeechRecognition } from "react-speech-kit";
@@ -63,24 +59,26 @@ const CorrectionForm = () => {
   };
   const mic = require("../../../public/mic.svg");
   return (
-    <>
-      <h5 className="text-center mr-2 text-text">Régler la taille:</h5>
-      <FontSizeChanger
-        targets={["#target-one"]}
-        customButtons={{
-          up: <ZoomIn />,
-          down: <ZoomOut />,
-          style: {
-            backgroundColor: "#472d30",
-            color: "#ffe1a8",
-            WebkitBoxSizing: "border-box",
-            WebkitBorderRadius: "12px",
-            width: "40px",
-            padding: "7px",
-          },
-          buttonsMargin: 10,
-        }}
-      />
+    <main data-aos="fade-up">
+      <div className="relative md:left-[80px] md:top-[50px] left-[150px] top-[50px]">
+        <FontSizeChanger
+          className="md:absolute md:top-0 md:right-0"
+          targets={["#target-one"]}
+          customButtons={{
+            up: <ZoomIn />,
+            down: <ZoomOut />,
+            style: {
+              backgroundColor: "#472d30",
+              color: "#ffe1a8",
+              WebkitBoxSizing: "border-box",
+              WebkitBorderRadius: "12px",
+              width: "40px",
+              padding: "7px",
+            },
+            buttonsMargin: 10,
+          }}
+        />
+      </div>
       <div id="target-one" className="mb-24">
         <div className="flex justify-end mr-32">
           <button
@@ -99,7 +97,7 @@ const CorrectionForm = () => {
           onSubmit={handleSubmit}
         >
           <textarea
-            className="bg-primary rounded text-text p-4 focus:outline-none"
+            className="bg-primary rounded text-text p-4 focus:outline-none w-96 md:w-full"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Entrez votre texte ici..."
@@ -146,11 +144,11 @@ const CorrectionForm = () => {
             Traduire
           </button>
         </div>
-        <div>
-          <div className="mt-4">
-            <div className="bg-primary text-text rounded p-4 relative w-[600px]">
+        <div className="flex justify-center flex-col md:flex-none">
+          <div className="mt-4 w-screen p-4 md:w-full flex flex-col justify-center items-center md:flex-none">
+            <div className="bg-primary text-text rounded p-4 relative md:w-[600px] flex justify-center md:flex-none md:justify-normal">
               <h3>Réponse :</h3>
-              <p className="max-w-full">{response}</p>
+              <p className="w-48 md:max-w-full">{response}</p>
               <button
                 onClick={() => navigator.clipboard.writeText(response)}
                 className="absolute top-0 right-0"
@@ -201,7 +199,7 @@ const CorrectionForm = () => {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 };
 

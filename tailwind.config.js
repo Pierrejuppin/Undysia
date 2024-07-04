@@ -5,6 +5,8 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  relative: true,
+  transform: (content) => content.replace(/taos:/g, ""),
   theme: {
     extend: {
       backgroundImage: {
@@ -18,7 +20,12 @@ module.exports = {
         text: "#FFE1A8",
         bh: "#6C4348",
       },
+      safelist: [
+        "!duration-[0ms]",
+        "!delay-[0ms]",
+        'html.js :where([class*="taos:"]:not(.taos-init))',
+      ],
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require("taos/plugin")],
 };
