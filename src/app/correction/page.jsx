@@ -1,10 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useSpeechSynthesis } from "react-speech-kit";
+import { useSpeechRecognition } from "react-speech-kit";
 
 const CorrectionForm = () => {
   const [inputText, setInputText] = useState("");
   const [response, setResponse] = useState("");
+
+  const { speak } = useSpeechSynthesis();
+
+  const { listen, listening, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setInputText(result);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +51,7 @@ const CorrectionForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <textarea
-          className="bg-black"
+          className="bg-black text-white p-2"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Entrez votre texte ici..."
@@ -49,11 +59,27 @@ const CorrectionForm = () => {
           cols={50}
         />
         <br />
-        <button type="submit">Corriger</button>
+        <button type="submit" className="mt-2 p-2 bg-blue-500 text-white">
+          Corriger
+        </button>
       </form>
-      <div>
+      <div className="mt-4">
+        <button
+          onClick={listening ? stop : listen}
+          className="mt-2 p-2 bg-blue-500 text-white"
+        >
+          {listening ? "Arrêter l'écoute" : "Utiliser le micro"}
+        </button>
+      </div>
+      <div className="mt-4">
         <h3>Réponse :</h3>
         <p>{response}</p>
+        <button
+          onClick={() => speak({ text: response })}
+          className="mt-2 p-2 bg-blue-500 text-white"
+        >
+          Lire la réponse
+        </button>
       </div>
     </div>
   );
