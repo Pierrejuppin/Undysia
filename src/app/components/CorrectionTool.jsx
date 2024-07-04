@@ -103,6 +103,7 @@ const CorrectionForm = () => {
             placeholder="Entrez votre texte ici..."
             rows={10}
             cols={50}
+            id="prompt-zone"
           />
           <br />
         </form>
