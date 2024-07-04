@@ -16,6 +16,7 @@ module.exports = {
         background: "#E26D5C",
         primary: "#472D30",
         text: "#FFE1A8",
+        bh: "#6C4348",
       },
     },
   },

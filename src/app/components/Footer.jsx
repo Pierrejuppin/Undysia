@@ -2,12 +2,16 @@ export default function Footer() {
   return (
     <div className="flex justify-evenly  w-full h-24 mt-4 bg-primary">
       <div className="dropdown dropdown-top my-auto">
-        <div tabIndex={0} role="button" className="btn m-1">
+        <div
+          tabIndex={0}
+          role="button"
+          className="btn m-1 bg-background text-primary hover:bg-bh"
+        >
           Ils recherchent toujours une alternance
         </div>
         <ul
           tabIndex={0}
-          className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+          className="dropdown-content menu bg-primary text-text hover:bg-bh rounded-box z-[1] w-52 p-2 shadow"
         >
           <li>
             <a href="https://portfolio-pi-roan-98.vercel.app/" target="_blank">
