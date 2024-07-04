@@ -1,3 +1,5 @@
+"use client";
+
 export default function Footer() {
   return (
     <div className="flex justify-evenly  w-full h-24 mt-4 bg-primary">
