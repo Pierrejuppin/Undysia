@@ -3,6 +3,8 @@ import { ClipboardCopy } from "lucide-react";
 import { Mic } from "lucide-react";
 import { Pause } from "lucide-react";
 import { Play } from "lucide-react";
+import { ZoomIn } from "lucide-react";
+import { ZoomOut } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
@@ -63,11 +65,20 @@ const CorrectionForm = () => {
   const mic = require("../../../public/mic.svg");
   return (
     <>
+      {/* <h5 className="text-center mr-2 text-text">Régler la taille:</h5> */}
       <FontSizeChanger
         targets={["#target-one"]}
-        options={{
-          stepSize: 2,
-          range: 3,
+        customButtons={{
+          up: <ZoomIn />,
+          down: <ZoomOut />,
+          style: {
+            backgroundColor: "#472d30",
+            color: "#ffe1a8",
+            WebkitBoxSizing: "border-box",
+            WebkitBorderRadius: "12px",
+            width: "40px",
+          },
+          buttonsMargin: 5,
         }}
       />
       <div id="target-one" className="mb-24">
