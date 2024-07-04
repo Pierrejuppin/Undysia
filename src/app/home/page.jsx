@@ -1,11 +1,24 @@
 "use client";
 
 import { useState } from "react";
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+import { useSpeechSynthesis } from "react-speech-kit";
+import { useSpeechRecognition } from "react-speech-kit";
+>>>>>>> f27e865bc7422b532d7b20796044f54386dbe474
 
 const CorrectionForm = () => {
   const [inputText, setInputText] = useState("");
   const [response, setResponse] = useState("");
+
+  const { speak } = useSpeechSynthesis();
+
+  const { listen, listening, stop } = useSpeechRecognition({
+    onResult: (result) => {
+      setInputText(result);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,6 +89,18 @@ const CorrectionForm = () => {
           </button>
         </form>
         <div>
+        <button
+          onClick={listening ? stop : listen}
+          className="mt-2 p-2 bg-blue-500 text-white"
+        >
+          {listening ? "Arrêter l'écoute" : "Utiliser le micro"}
+        </button>
+        <button
+          onClick={() => speak({ text: response })}
+          className="mt-2 p-2 bg-blue-500 text-white"
+        >
+          Lire la réponse
+        </button>
           <h3>Résultat :</h3>
           <p className="mb-56">{response}</p>
         </div>
