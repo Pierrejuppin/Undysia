@@ -14,7 +14,13 @@ const HeroHeader = () => {
             vous permettant de corriger vos différentes {"\n"}rédactions CV,
             Lettre de motivation et de les{"\n"} télécharger au format PDF
           </p>
-          <Image src="/home.jpeg" alt="home" width={500} height={500} />
+          <Image
+            src="/home.jpeg"
+            alt="home"
+            width={500}
+            height={500}
+            priority
+          />
         </div>
       </div>
     </div>
