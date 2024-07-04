@@ -1,20 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { useSpeechRecognition } from "react-speech-kit";
 
 const CorrectionForm = () => {
   const [inputText, setInputText] = useState("");
   const [response, setResponse] = useState("");
+  const [selectedVoice, setSelectedVoice] = useState(null);
 
-  const { speak } = useSpeechSynthesis();
-
+  const { speak, cancel, voices } = useSpeechSynthesis();
   const { listen, listening, stop } = useSpeechRecognition({
     onResult: (result) => {
       setInputText(result);
     },
   });
+
+  useEffect(() => {
+    if (voices.length > 0 && !selectedVoice) {
+      setSelectedVoice(voices[0].voiceURI);
+    }
+  }, [voices, selectedVoice]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,11 +81,39 @@ const CorrectionForm = () => {
         <h3>Réponse :</h3>
         <p>{response}</p>
         <button
-          onClick={() => speak({ text: response })}
+          onClick={() =>
+            speak({
+              text: response,
+              voice: voices.find((v) => v.voiceURI === selectedVoice),
+            })
+          }
           className="mt-2 p-2 bg-blue-500 text-white"
         >
           Lire la réponse
         </button>
+        <button
+          onClick={cancel}
+          className="mt-2 p-2 bg-red-500 text-white ml-2"
+        >
+          Arrêter
+        </button>
+      </div>
+      <div className="mt-4">
+        <label htmlFor="voiceSelect" className="mr-2">
+          Choisir une voix :
+        </label>
+        <select
+          id="voiceSelect"
+          value={selectedVoice}
+          onChange={(e) => setSelectedVoice(e.target.value)}
+          className="p-2 bg-white text-black"
+        >
+          {voices.map((voice) => (
+            <option key={voice.voiceURI} value={voice.voiceURI}>
+              {voice.name} ({voice.lang})
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
