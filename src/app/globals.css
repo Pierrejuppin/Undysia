@@ -16,6 +16,11 @@
   }
 }
 
+* {
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background-color: #e26d5c;

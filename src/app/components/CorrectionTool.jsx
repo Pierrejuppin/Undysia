@@ -1,5 +1,9 @@
 "use client";
-
+import { ClipboardCopy } from "lucide-react";
+import { Mic } from "lucide-react";
+import { Pause } from "lucide-react";
+import { Play } from "lucide-react";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 import { useSpeechRecognition } from "react-speech-kit";
@@ -56,7 +60,7 @@ const CorrectionForm = () => {
       console.error("Error fetching from ChatGPT API:", error);
     }
   };
-
+  const mic = require("../../../public/mic.svg");
   return (
     <>
       <FontSizeChanger
@@ -66,13 +70,25 @@ const CorrectionForm = () => {
           range: 3,
         }}
       />
-      <div id="target-one">
+      <div id="target-one" className="mb-24">
+        <div className="flex justify-end mr-32">
+          <button
+            onClick={listening ? stop : listen}
+            className="w-8 rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
+          >
+            {listening ? (
+              <Pause size={25} strokeWidth={1} />
+            ) : (
+              <Mic size={25} strokeWidth={1} />
+            )}
+          </button>
+        </div>
         <form
-          className="flex flex-col justify-center items-center my-14  mt-54"
+          className="flex flex-col  justify-center items-center  "
           onSubmit={handleSubmit}
         >
           <textarea
-            className="bg-primary rounded text-text"
+            className="bg-primary rounded text-text p-4 focus:outline-none"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Entrez votre texte ici..."
@@ -80,6 +96,8 @@ const CorrectionForm = () => {
             cols={50}
           />
           <br />
+        </form>
+        <div className="flex flex-row justify-center">
           <button
             type="submit"
             onClick={(e) =>
@@ -88,7 +106,7 @@ const CorrectionForm = () => {
                 `Corrige les fautes d'orthographe, de style et de conjugaisons dans sa langue actuelle : ${inputText}`
               )
             }
-            className="w-20 rounded bg-primary text-text border-2 border-black"
+            className="w-32 mx-2 rounded bg-primary text-text border-2 border-black hover:bg-bh"
           >
             Corriger
           </button>
@@ -100,7 +118,7 @@ const CorrectionForm = () => {
                 `Reformule ce texte pour un contexte profesionnel dans sa langue actuelle : ${inputText}`
               )
             }
-            className="w-20 rounded bg-primary text-text border-2 border-black"
+            className="w-32 mx-2 rounded bg-primary text-text border-2 border-black hover:bg-bh"
           >
             Reformuler
           </button>
@@ -112,48 +130,55 @@ const CorrectionForm = () => {
                 `Traduis le texte dans un anglais profesionnel : ${inputText}`
               )
             }
-            className="w-20 rounded bg-primary text-text border-2 border-black"
+            className="w-32 mx-2 rounded bg-primary text-text border-2 border-black hover:bg-bh"
           >
             Traduire
           </button>
-        </form>
+        </div>
         <div>
-          <button
-            onClick={listening ? stop : listen}
-            className="mt-2 p-2 bg-blue-500 text-white"
-          >
-            {listening ? "Arrêter l'écoute" : "Utiliser le micro"}
-          </button>
-
           <div className="mt-4">
-            <h3>Réponse :</h3>
-            <p>{response}</p>
-            <button
-              onClick={() =>
-                speak({
-                  text: response,
-                  voice: voices.find((v) => v.voiceURI === selectedVoice),
-                })
-              }
-              className="mt-2 p-2 bg-blue-500 text-white"
-            >
-              Lire la réponse
-            </button>
-            <button
-              onClick={cancel}
-              className="mt-2 p-2 bg-red-500 text-white ml-2"
-            >
-              Arrêter
-            </button>
-            <div className="mt-4">
-              <label htmlFor="voiceSelect" className="mr-2">
+            <div className="bg-primary text-text rounded p-4 relative w-[600px]">
+              <h3>Réponse :</h3>
+              <p className="max-w-full">{response}</p>
+              <button
+                onClick={() => navigator.clipboard.writeText(response)}
+                className="absolute top-0 right-0"
+              >
+                <ClipboardCopy
+                  size={20}
+                  color="#FFE1A8"
+                  strokeWidth={0.75}
+                  className="m-2"
+                />
+              </button>
+            </div>
+            <div className="flex flex-row justify-center items-center">
+              <button
+                onClick={() =>
+                  speak({
+                    text: response,
+                    voice: voices.find((v) => v.voiceURI === selectedVoice),
+                  })
+                }
+                className=" rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
+              >
+                <Play size={25} strokeWidth={1} />
+              </button>
+              <button
+                onClick={cancel}
+                className=" rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
+              >
+                <Pause size={25} strokeWidth={1} />
+              </button>
+
+              <label htmlFor="voiceSelect" className="mr-2 text-text">
                 Choisir une voix :
               </label>
               <select
                 id="voiceSelect"
                 value={selectedVoice}
                 onChange={(e) => setSelectedVoice(e.target.value)}
-                className="p-2 bg-white text-black"
+                className="p-2 bg-primary text-text"
               >
                 {voices.map((voice) => (
                   <option key={voice.voiceURI} value={voice.voiceURI}>
