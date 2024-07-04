@@ -57,12 +57,11 @@ const CorrectionForm = () => {
       console.error("Error fetching from ChatGPT API:", error);
     }
   };
-  const mic = require("../../../public/mic.svg");
+
   return (
     <main data-aos="fade-up">
-      <div className="relative md:left-[80px] md:top-[50px] left-[150px] top-[50px]">
+      <div className="flex flex-row justify-around items-center">
         <FontSizeChanger
-          className="md:absolute md:top-0 md:right-0"
           targets={["#target-one"]}
           customButtons={{
             up: <ZoomIn />,
@@ -78,20 +77,18 @@ const CorrectionForm = () => {
             buttonsMargin: 10,
           }}
         />
+        <button
+          onClick={listening ? stop : listen}
+          className="w-8 rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
+        >
+          {listening ? (
+            <Pause size={25} strokeWidth={1} />
+          ) : (
+            <Mic size={25} strokeWidth={1} />
+          )}
+        </button>
       </div>
-      <div id="target-one" className="mb-24">
-        <div className="flex justify-end mr-32">
-          <button
-            onClick={listening ? stop : listen}
-            className="w-8 rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
-          >
-            {listening ? (
-              <Pause size={25} strokeWidth={1} />
-            ) : (
-              <Mic size={25} strokeWidth={1} />
-            )}
-          </button>
-        </div>
+      <div id="target-one">
         <form
           className="flex flex-col  justify-center items-center  "
           onSubmit={handleSubmit}
@@ -106,7 +103,7 @@ const CorrectionForm = () => {
           />
           <br />
         </form>
-        <div className="flex flex-row justify-center">
+        <div className="flex flex-row justify-center mt-8">
           <button
             type="submit"
             onClick={(e) =>
@@ -115,7 +112,7 @@ const CorrectionForm = () => {
                 `Corrige les fautes d'orthographe, de style et de conjugaisons dans sa langue actuelle : ${inputText}`
               )
             }
-            className="w-32 mx-2 rounded bg-primary text-text border-2 border-black hover:bg-bh"
+            className="w-32 md:mx-2 mx-1 rounded bg-primary text-text border-2 border-black hover:bg-bh"
           >
             Corriger
           </button>
@@ -127,7 +124,7 @@ const CorrectionForm = () => {
                 `Reformule ce texte pour un contexte profesionnel dans sa langue actuelle : ${inputText}`
               )
             }
-            className="w-32 mx-2 rounded bg-primary text-text border-2 border-black hover:bg-bh"
+            className="w-32 md:mx-2 mx-1 rounded bg-primary text-text border-2 border-black hover:bg-bh"
           >
             Reformuler
           </button>
@@ -139,12 +136,12 @@ const CorrectionForm = () => {
                 `Traduis le texte dans un anglais profesionnel : ${inputText}`
               )
             }
-            className="w-32 mx-2 rounded bg-primary text-text border-2 border-black hover:bg-bh"
+            className="w-32 md:mx-2 mx-1 rounded bg-primary text-text border-2 border-black hover:bg-bh"
           >
             Traduire
           </button>
         </div>
-        <div className="flex justify-center flex-col md:flex-none">
+        <div className="flex justify-center items-center flex-col md:flex-none">
           <div className="mt-4 w-screen p-4 md:w-full flex flex-col justify-center items-center md:flex-none">
             <div className="bg-primary text-text rounded p-4 relative md:w-[600px] flex justify-center md:flex-none md:justify-normal">
               <h3>Réponse :</h3>
@@ -161,7 +158,7 @@ const CorrectionForm = () => {
                 />
               </button>
             </div>
-            <div className="flex flex-row justify-center items-center">
+            <div className="flex flex-col items-center md:flex-row">
               <button
                 onClick={() =>
                   speak({
@@ -169,13 +166,13 @@ const CorrectionForm = () => {
                     voice: voices.find((v) => v.voiceURI === selectedVoice),
                   })
                 }
-                className=" rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
+                className=" rounded-full bg-primary text-text border-2 border-text m-2 md:m-4 hover:bg-bh flex justify-center"
               >
                 <Play size={25} strokeWidth={1} />
               </button>
               <button
                 onClick={cancel}
-                className=" rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
+                className=" rounded-full bg-primary text-text border-2 border-text m-2 md:m-4 hover:bg-bh flex justify-center"
               >
                 <Pause size={25} strokeWidth={1} />
               </button>
@@ -187,7 +184,7 @@ const CorrectionForm = () => {
                 id="voiceSelect"
                 value={selectedVoice}
                 onChange={(e) => setSelectedVoice(e.target.value)}
-                className="p-2 bg-primary text-text"
+                className="p-2 bg-primary text-text max-w-60"
               >
                 {voices.map((voice) => (
                   <option key={voice.voiceURI} value={voice.voiceURI}>
