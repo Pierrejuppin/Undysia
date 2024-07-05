@@ -7,7 +7,7 @@ export default function Footer() {
         <div
           tabIndex={0}
           role="button"
-          className="btn m-1 bg-background text-primary hover:bg-bh"
+          className="btn m-1 bg-background text-primary hover:text-text hover:bg-bh"
         >
           Ils recherchent toujours une alternance
         </div>
