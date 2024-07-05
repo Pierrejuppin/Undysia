@@ -78,6 +78,7 @@ const CorrectionForm = () => {
           }}
         />
         <button
+          aria-label="voice command button"
           onClick={listening ? stop : listen}
           className="w-8 rounded-full bg-primary text-text border-2 border-text m-4 hover:bg-bh flex justify-center"
         >
@@ -102,6 +103,7 @@ const CorrectionForm = () => {
             cols={50}
             id="prompt-zone"
           />
+
           <br />
         </form>
         <div className="flex flex-row justify-center mt-8">
@@ -148,8 +150,9 @@ const CorrectionForm = () => {
               <h3>Réponse :</h3>
               <p className="w-48 md:max-w-full">{response}</p>
               <button
+                aria-label="copy to clipboard button"
                 onClick={() => navigator.clipboard.writeText(response)}
-                className="absolute top-0 right-0"
+                className="absolute top-0 right-0 "
               >
                 <ClipboardCopy
                   size={20}
@@ -160,25 +163,28 @@ const CorrectionForm = () => {
               </button>
             </div>
             <div className="flex flex-col items-center md:flex-row">
-              <button
-                onClick={() =>
-                  speak({
-                    text: response,
-                    voice: voices.find((v) => v.voiceURI === selectedVoice),
-                  })
-                }
-                className=" rounded-full bg-primary text-text border-2 border-text m-2 md:m-4 hover:bg-bh flex justify-center"
-              >
-                <Play size={25} strokeWidth={1} />
-              </button>
-              <button
-                onClick={cancel}
-                className=" rounded-full bg-primary text-text border-2 border-text m-2 md:m-4 hover:bg-bh flex justify-center"
-              >
-                <Pause size={25} strokeWidth={1} />
-              </button>
-
-              <label htmlFor="voiceSelect" className="mr-2 text-text">
+              <div className="flex">
+                <button
+                  aria-label="play button"
+                  onClick={() =>
+                    speak({
+                      text: response,
+                      voice: voices.find((v) => v.voiceURI === selectedVoice),
+                    })
+                  }
+                  className=" rounded-full bg-primary text-text border-2 border-text m-2 md:m-4 hover:bg-bh flex justify-center"
+                >
+                  <Play size={25} strokeWidth={1} />
+                </button>
+                <button
+                  aria-label="pause button"
+                  onClick={cancel}
+                  className=" rounded-full bg-primary text-text border-2 border-text m-2 md:m-4 hover:bg-bh flex justify-center"
+                >
+                  <Pause size={25} strokeWidth={1} />
+                </button>
+              </div>
+              <label htmlFor="voiceSelect" className="mr-2 text-primary">
                 Choisir une voix :
               </label>
               <select
