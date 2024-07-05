@@ -14,7 +14,7 @@ const HeroHeader = () => {
       />
       <div className=" text-center flex flex-col md:flex-row justify-center items-center max-w md:pt-24 pt-48">
         <div className="flex-col">
-          <p className="py-6 text-2xl text-center italic font-thin text-text w-96 md:text-left">
+          <p className="py-6 text-2xl text-center italic font-thin text-black w-96 md:text-left">
             Bienvenue sur <span className="text-primary text-2xl">UNDYSIA</span>
             , votre solution de rédaction {"\n"}adaptée aux personnes
             dyslexiques {"\n"}
